@@ -1,0 +1,7 @@
+services:
+  editor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./init.lua:/root/.config/nvim/init.lua
