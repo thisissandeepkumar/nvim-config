@@ -1,7 +1,6 @@
 -- Install Packer plugins
 require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'        -- Packer can manage itself
-    use 'nvim-lua/plenary.nvim'         -- Required dependency for many plugins
     use 'nvim-treesitter/nvim-treesitter' -- Treesitter for syntax highlighting
     use 'neovim/nvim-lspconfig'         -- LSP (Language Server Protocol)
     use 'hrsh7th/nvim-cmp'              -- Autocompletion
@@ -16,7 +15,6 @@ require('packer').startup(function(use)
     use 'mfussenegger/nvim-dap'         -- Debug Adapter Protocol
     use 'rcarriga/nvim-dap-ui'          -- Debug UI for DAP
     use 'nvim-neotest/nvim-nio'         -- Required for nvim-dap-ui
-    use 'jose-elias-alvarez/null-ls.nvim' -- Null-ls for formatting
 end)
 
 -- Basic Neovim settings
@@ -39,7 +37,7 @@ vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true })
 
 -- Treesitter setup (including automatic installation of parsers)
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { "c", "cpp", "lua", "python", "javascript", "typescript" }, -- Add more languages as needed
+    ensure_installed = { "c", "cpp", "lua", "python" }, -- Add more languages as needed
     highlight = {
         enable = true,                                 -- Enable syntax highlighting
     },
@@ -57,7 +55,7 @@ vim.cmd([[
 local lspconfig = require('lspconfig')
 
 -- Define servers to install
-local servers = { "clangd", "pyright", "ts_ls" }
+local servers = { "clangd", "pyright" }
 
 -- Install missing LSP servers (requires npm globally)
 for _, server in ipairs(servers) do
@@ -172,34 +170,3 @@ vim.api.nvim_set_keymap(
   ':w<CR>:!g++ -std=c++17 % -o %:r && ./%:r<CR>', 
   { noremap = true, silent = true }
 )
-
-local null_ls = require('null-ls')
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.prettier.with({
-            filetypes = { "javascript", "typescript", "json", "css", "html" },
-        }),
-        null_ls.builtins.diagnostics.eslint_d.with({
-            condition = function(utils)
-                return utils.root_has_file('.eslintrc.json') or utils.root_has_file('.eslintrc.js')
-            end,
-        }),
-        null_ls.builtins.code_actions.eslint_d,  -- Enable ESLint code actions
-    },
-})
-
-vim.api.nvim_set_keymap('n', '<leader>rj', ':w<CR>:!node %<CR>', { noremap = true, silent = true })
-
--- Configure a language server (e.g., tsserver for JavaScript/TypeScript)
-lspconfig.ts_ls.setup {
-    capabilities = capabilities,
-    on_attach = function(client, bufnr)
-        -- Key mappings for LSP features
-        local opts = { noremap = true, silent = true }
-        local buf_set_keymap = vim.api.nvim_buf_set_keymap
-        buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)   -- Go to Definition
-        buf_set_keymap(bufnr, 'n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts) -- Go to Implementation
-        buf_set_keymap(bufnr, 'n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)    -- Find References
-    end,
-}
-
