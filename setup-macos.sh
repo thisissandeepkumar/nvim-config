@@ -28,3 +28,7 @@ fi
 npm install -g eslint eslint_d
 brew install llvm
 pipx install pyright
+
+# Install the Copilot plugin
+git clone https://github.com/github/copilot.vim.git \
+  ~/.config/nvim/pack/github/start/copilot.vim
