@@ -3,6 +3,7 @@ require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'        -- Packer can manage itself
     use 'nvim-lua/plenary.nvim'         -- Required dependency for many plugins
     use 'nvim-treesitter/nvim-treesitter' -- Treesitter for syntax highlighting
+    use 'p00f/nvim-ts-rainbow'           -- Rainbow plugin for Tree-sitter
     use 'neovim/nvim-lspconfig'         -- LSP (Language Server Protocol)
     use 'hrsh7th/nvim-cmp'              -- Autocompletion
     use 'hrsh7th/cmp-nvim-lsp'          -- LSP source for nvim-cmp
@@ -39,12 +40,17 @@ vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true })
 
 -- Treesitter setup (including automatic installation of parsers)
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { "c", "cpp", "lua", "python", "javascript", "typescript" }, -- Add more languages as needed
+    ensure_installed = { "c", "cpp", "lua", "python", "javascript", "typescript" "html", "css" }, -- Add more languages as needed
     highlight = {
         enable = true,                                 -- Enable syntax highlighting
     },
     incremental_selection = {
         enable = true,
+    },
+    rainbow = {
+        enable = true, -- Enable the rainbow feature
+        extended_mode = true, -- Highlight non-bracket delimiters like HTML tags
+        max_file_lines = nil, -- Disable for large files
     },
 }
 
