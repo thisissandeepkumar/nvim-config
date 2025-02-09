@@ -40,7 +40,7 @@ vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true })
 
 -- Treesitter setup (including automatic installation of parsers)
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { "c", "cpp", "lua", "python", "javascript", "typescript" "html", "css" }, -- Add more languages as needed
+    ensure_installed = { "c", "cpp", "lua", "python", "javascript", "typescript", "html", "css" }, -- Add more languages as needed
     highlight = {
         enable = true,                                 -- Enable syntax highlighting
     },
