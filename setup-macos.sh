@@ -15,7 +15,8 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim \
   ~/.local/share/nvim/site/pack/packer/start/packer.nvim
 
 mkdir -p ~/.config/nvim
-cp init.lua ~/.config/nvim/init.lua
+curl -fsSL "https://github.com/thisissandeepkumar/nvim-config/blob/cd3a11036e884adbaf33c044562acb8aa029ed8e/init.lua" \
+  -o ~/.config/nvim/init.lua
 
 # Check if Node.js is installed. If not, install it with nvm
 if test ! $(which node); then
