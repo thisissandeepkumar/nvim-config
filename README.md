@@ -6,6 +6,6 @@ Run the following
 
 For MacOS
 ```bash
-/bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/thisissandeepkumar/nvim-config/setup-macos.sh)"
+/bin/zsh -c "$(curl -fsSL https://raw.githubusercontent.com/thisissandeepkumar/nvim-config/HEAD/setup-macos.sh)"
 ```
 
