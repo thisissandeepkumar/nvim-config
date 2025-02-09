@@ -190,3 +190,16 @@ null_ls.setup({
 
 vim.api.nvim_set_keymap('n', '<leader>rj', ':w<CR>:!node %<CR>', { noremap = true, silent = true })
 
+-- Configure a language server (e.g., tsserver for JavaScript/TypeScript)
+lspconfig.ts_ls.setup {
+    capabilities = capabilities,
+    on_attach = function(client, bufnr)
+        -- Key mappings for LSP features
+        local opts = { noremap = true, silent = true }
+        local buf_set_keymap = vim.api.nvim_buf_set_keymap
+        buf_set_keymap(bufnr, 'n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)   -- Go to Definition
+        buf_set_keymap(bufnr, 'n', 'gi', '<Cmd>lua vim.lsp.buf.implementation()<CR>', opts) -- Go to Implementation
+        buf_set_keymap(bufnr, 'n', 'gr', '<Cmd>lua vim.lsp.buf.references()<CR>', opts)    -- Find References
+    end,
+}
+

@@ -26,3 +26,5 @@ if test ! $(which node); then
 fi
 
 npm install -g eslint eslint_d
+brew install llvm
+pipx install pyright
