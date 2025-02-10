@@ -5,3 +5,6 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./init.lua:/root/.config/nvim/init.lua
+      - ./app:/app
+      - ./idrsa:/root/.ssh/id_rsa
+      - ./idrsa.pub:/root/.ssh/id_rsa.pub
